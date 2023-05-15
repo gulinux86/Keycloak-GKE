@@ -33,7 +33,7 @@ replicaset.apps/ingress-nginx-controller-5cdcb78546   1         1         1     
 
 NAME                                       COMPLETIONS   DURATION   AGE
 job.batch/ingress-nginx-admission-create   1/1           2m9s       24h
-job.batch/ingress-nginx-admission-patch    1/1           2m17s      24h
+job.batch/ingress-nginx-admission-patch    1/1           2m17s      24h```
 
 
 Our Cluster will use Cert-manager to support **SSL** on **Keycloak** application. Let’s install the Cert-Manager via Helm.
