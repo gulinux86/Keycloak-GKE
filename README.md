@@ -71,3 +71,53 @@ replicaset.apps/cert-manager-66d588bfc5            1         1         1       2
 replicaset.apps/cert-manager-cainjector-c89c4c45   1         1         1       24h
 replicaset.apps/cert-manager-webhook-6c4bd6b66b    1         1         1       24h
 ```
+
+### Now, we need a Cluster-Issuer that will make available the certificates to the whole server and including all namespaces:
+
+### https://cert-manager.io/docs/configuration/acme/
+
+### vim vim clusterissuer.yaml
+```
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: gustavopereiranogueira@gmail.com
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
+      name: letsencrypt-staging
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+---
+
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    # You must replace this email address with your own.
+    # Let's Encrypt will use this to contact you about expiring
+    # certificates, and issues related to your account.
+    email: gustavopereiranogueira@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      # Secret resource that will be used to store the account's private key.
+      name: letsencrypt-prod
+    # Add a single challenge solver, HTTP01 using nginx
+    solvers:
+    - http01:
+        ingress:
+          class: nginx
+```
+
+
