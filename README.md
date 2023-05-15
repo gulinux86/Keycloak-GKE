@@ -140,7 +140,6 @@ NAME                  READY   AGE
 letsencrypt-prod      True    24h
 letsencrypt-staging   True    24h
 ```
-```
 
 ```
 kubectl describe clusterissuer letsencrypt-prod
