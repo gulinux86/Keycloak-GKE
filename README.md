@@ -16,7 +16,7 @@ kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-ad
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.0/deploy/static/provider/cloud/deploy.yaml
 ```
 
-After installation run the command to check the EXTERNAL-IP and and Ingress-Controller on the ingress-nginx namespaces:
+After installation run the command to check the **EXTERNAL-IP** and and Ingress-Controller on the ingress-nginx namespaces:
 
 ```
 kubectl get all -n ingress-nginx
@@ -235,6 +235,7 @@ NAME                             APPROVED   DENIED   READY   ISSUER             
 tls-qfxmn   True                True    letsencrypt-prod   system:serviceaccount:cert-manager:cert-manager   17h
 ```
 
+
 * Consulting Secrets:
 
 ```
@@ -248,8 +249,8 @@ kubectl describe secrets
 Name:         tls-cloud.contaja.com.br
 Namespace:    default
 Labels:       controller.cert-manager.io/fao=true
-Annotations:  cert-manager.io/alt-names: cloud.contaja.com.br
-              cert-manager.io/certificate-name: tls-cloud.contaja.com.br
+Annotations:  cert-manager.io/alt-names: YOUR-DOMAIN
+              cert-manager.io/certificate-name: tls-YOUR-DOMAIN
               cert-manager.io/common-name: cloud.contaja.com.br
               cert-manager.io/ip-sans:
               cert-manager.io/issuer-group: cert-manager.io
@@ -264,3 +265,115 @@ Data
 tls.crt:  5603 bytes
 tls.key:  1679 bytes
 ```
+
+### We should install an Ingress as well, to read the rules prepared to redirect the requests to the right port. So, the Ingress will be  ready to use TLS protocol:
+
+```
+vim ingress.keycloak.yaml
+```
+
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: keycloak
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  tls:
+    - hosts:
+        - YOUR-DOMAIN
+      secretName: tls-YOUR-DOMAIN
+  ingressClassName: nginx
+  rules:
+  - host: YOUR-DOMAIN
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: keycloak
+            port:
+              number: 8080
+```
+
+* After configuring it, let’s deploy it running the command below:
+
+```
+kubectl apply -f ingress.keycloak.yaml
+```
+
+* Checking the ingress:
+
+```
+kubectl get ingress
+```
+
+```
+NAME       CLASS   HOSTS                  ADDRESS         PORTS     AGE
+keycloak   nginx   your-domain   34.29.129.164   80, 443   17h
+```
+
+* Like above, we can see the same IP address from the **EXTERNAL-IP** from the Ingress-Controller.
+
+* Now we definitely will deploy the Keycloak Application, running the manifesto below:
+
+```
+vim keycloak.yaml
+```
+
+```
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: keycloak
+    app: keycloak
+  ports:
+    - protocol: TCP
+      port: 8080
+      name: http
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak
+  labels:
+    app: keycloak
+    app.kubernetes.io/name: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+        app.kubernetes.io/name: keycloak
+    spec:
+      containers:
+      - name: keycloak
+        image: quay.io/keycloak/keycloak:18.0.2
+        args: ["start-dev","--health-enabled=true", "--proxy=edge"]
+        env:
+        - name: KEYCLOAK_ADMIN
+          value: "admin"
+        - name: KEYCLOAK_ADMIN_PASSWORD
+          value: "admin"
+        - name: KEYCLOAK_LOGLEVEL
+          value: "DEBUG"
+        ports:
+        - name: http
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /realms/master
+            port: 8080
+```       
