@@ -36,9 +36,6 @@ job.batch/ingress-nginx-admission-create   1/1           2m9s       24h
 job.batch/ingress-nginx-admission-patch    1/1           2m17s      24h
 
 
-
-
-
 Our Cluster will use Cert-manager to support **SSL** on **Keycloak** application. Let’s install the Cert-Manager via Helm.
 
 helm install --create-namespace --namespace cert-manager --set installCRDs=true --set global.leaderElection.namespace=cert-manager cert-manager jetstack/cert-manager
