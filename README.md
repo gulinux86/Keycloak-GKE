@@ -125,9 +125,6 @@ spec:
 
 * Checking cluster issuer:
 ```
-Checking cluster issuer:
-```
-```
 kubectl get clusterissuer
 ```
 ```
