@@ -131,10 +131,11 @@ Checking cluster issuer:
 NAME                  READY   AGE
 letsencrypt-prod      True    24h
 letsencrypt-staging   True    24h
-
-
-kubectl get clusterissuer
-
+```
+```
+kubectl describe clusterissuer letsencrypt-prod
+```
+```
 NAME                  READY   AGE
 letsencrypt-prod      True    24h
 letsencrypt-staging   True    24h
