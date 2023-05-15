@@ -197,7 +197,7 @@ Metadata:
   UID:               174e0495-37bf-4b9b-85ea-49d7e5329fc4
 Spec:
   Acme:
-    Email:            gustavopereiranogueira@gmail.com
+    Email:            YOUR-EMAIL-HERE
     Preferred Chain:
     Private Key Secret Ref:
       Name:  letsencrypt-prod
@@ -208,7 +208,7 @@ Spec:
           Class:  nginx
 Status:
   Acme:
-    Last Registered Email:  gustavopereiranogueira@gmail.com
+    Last Registered Email:  YOUR-EMAIL-HERE
     Uri:                    https://acme-v02.api.letsencrypt.org/acme/acct/1080703067
   Conditions:
     Last Transition Time:  2023-04-26T14:51:56Z
@@ -218,4 +218,16 @@ Status:
     Status:                True
     Type:                  Ready
 Events:                    <none>
+```
+
+* Checking for certificates:
+```
+kubectl get certificates.cert-manager.io
+```
+```
+NAME                       READY   SECRET                     AGE
+tls   True    tls   17h
+gustavopereiranogueira@cloudshell:~$ kubectl get certificaterequests.cert-manager.io
+NAME                             APPROVED   DENIED   READY   ISSUER             REQUESTOR                                         AGE
+tls-qfxmn   True                True    letsencrypt-prod   system:serviceaccount:cert-manager:cert-manager   17h
 ```
