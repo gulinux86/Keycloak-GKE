@@ -127,6 +127,8 @@ spec:
 ```
 Checking cluster issuer:
 ```
+kubectl get clusterissuer
+```
 ```
 NAME                  READY   AGE
 letsencrypt-prod      True    24h
