@@ -141,6 +141,7 @@ letsencrypt-prod      True    24h
 letsencrypt-staging   True    24h
 ```
 ```
+
 kubectl describe clusterissuer letsencrypt-prod
 Name:         letsencrypt-prod
 Namespace:
@@ -232,4 +233,34 @@ tls   True    tls   17h
 gustavopereiranogueira@cloudshell:~$ kubectl get certificaterequests.cert-manager.io
 NAME                             APPROVED   DENIED   READY   ISSUER             REQUESTOR                                         AGE
 tls-qfxmn   True                True    letsencrypt-prod   system:serviceaccount:cert-manager:cert-manager   17h
+```
+
+* Consulting Secrets:
+
+```
+kubectl get secrets
+```
+```
+NAME                       TYPE                DATA   AGE
+tls-cloud.contaja.com.br   kubernetes.io/tls   2      17h
+
+kubectl describe secrets
+Name:         tls-cloud.contaja.com.br
+Namespace:    default
+Labels:       controller.cert-manager.io/fao=true
+Annotations:  cert-manager.io/alt-names: cloud.contaja.com.br
+              cert-manager.io/certificate-name: tls-cloud.contaja.com.br
+              cert-manager.io/common-name: cloud.contaja.com.br
+              cert-manager.io/ip-sans:
+              cert-manager.io/issuer-group: cert-manager.io
+              cert-manager.io/issuer-kind: ClusterIssuer
+              cert-manager.io/issuer-name: letsencrypt-prod
+              cert-manager.io/uri-sans:
+
+Type:  kubernetes.io/tls
+
+Data
+====
+tls.crt:  5603 bytes
+tls.key:  1679 bytes
 ```
