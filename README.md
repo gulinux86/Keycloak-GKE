@@ -10,10 +10,11 @@ After find it, you we should run the commands bellow:
 
 Run te coommands bellow:
 
-```kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)```
+```
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user $(gcloud config get-value account)
 
-```kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.0/deploy/static/provider/cloud/deploy.yaml```
-
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.7.0/deploy/static/provider/cloud/deploy.yaml
+```
 
 After installation run the command to check the EXTERNAL-IP and and Ingress-Controller on the ingress-nginx namespaces:
 
@@ -36,5 +37,3 @@ NAME                                       COMPLETIONS   DURATION   AGE
 job.batch/ingress-nginx-admission-create   1/1           2m9s       24h
 job.batch/ingress-nginx-admission-patch    1/1           2m17s      24h
 
-
-## Our Cluster will use Cert-manager to support SSL on Keycloak application. Let’s install the Cert-Manager via Helm.
