@@ -144,6 +144,7 @@ letsencrypt-staging   True    24h
 ```
 kubectl describe clusterissuer letsencrypt-prod
 ```
+```
 Name:         letsencrypt-prod
 Namespace:
 Labels:       <none>
