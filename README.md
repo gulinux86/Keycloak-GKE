@@ -139,7 +139,9 @@ kubectl describe clusterissuer letsencrypt-prod
 NAME                  READY   AGE
 letsencrypt-prod      True    24h
 letsencrypt-staging   True    24h
-gustavopereiranogueira@cloudshell:~$ kubectl describe clusterissuer letsencrypt-prod
+```
+```
+kubectl describe clusterissuer letsencrypt-prod
 Name:         letsencrypt-prod
 Namespace:
 Labels:       <none>
