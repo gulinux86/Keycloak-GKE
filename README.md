@@ -75,8 +75,9 @@ replicaset.apps/cert-manager-webhook-6c4bd6b66b    1         1         1       2
 ### Now, we need a Cluster-Issuer that will make available the certificates to the whole server and including all namespaces:
 
 ### https://cert-manager.io/docs/configuration/acme/
-
-### vim vim clusterissuer.yaml
+```
+vim clusterissuer.yaml
+```
 ```
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
