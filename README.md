@@ -40,3 +40,34 @@ job.batch/ingress-nginx-admission-create   1/1           2m9s       24h
 job.batch/ingress-nginx-admission-patch    1/1           2m17s      24h
 ```
 
+### Our Cluster will use Cert-manager to support SSL on Keycloak application. Let’s install the Cert-Manager via Helm.
+
+```
+helm install --create-namespace --namespace cert-manager --set installCRDs=true --set global.leaderElection.namespace=cert-manager cert-manager jetstack/cert-manager
+```
+
+### Checking Cert-Manager’s namespace:
+
+```
+kubectl get all -n cert-manager
+```
+```
+NAME                                         READY   STATUS    RESTARTS   AGE
+pod/cert-manager-66d588bfc5-cch5q            1/1     Running   0          24h
+pod/cert-manager-cainjector-c89c4c45-4wm4k   1/1     Running   0          24h
+pod/cert-manager-webhook-6c4bd6b66b-m9nbj    1/1     Running   0          24h
+
+NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/cert-manager           ClusterIP   10.32.129.211   <none>        9402/TCP   24h
+service/cert-manager-webhook   ClusterIP   10.32.128.239   <none>        443/TCP    24h
+
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cert-manager              1/1     1            1           24h
+deployment.apps/cert-manager-cainjector   1/1     1            1           24h
+deployment.apps/cert-manager-webhook      1/1     1            1           24h
+
+NAME                                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/cert-manager-66d588bfc5            1         1         1       24h
+replicaset.apps/cert-manager-cainjector-c89c4c45   1         1         1       24h
+replicaset.apps/cert-manager-webhook-6c4bd6b66b    1         1         1       24h
+```
