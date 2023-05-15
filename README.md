@@ -21,7 +21,6 @@ After installation run the command to check the EXTERNAL-IP and and Ingress-Cont
 ```
 kubectl get all -n ingress-nginx
 
-
 NAME                                            READY   STATUS    RESTARTS   AGE
 pod/ingress-nginx-controller-5cdcb78546-bqvdp   1/1     Running   0          24h
 
