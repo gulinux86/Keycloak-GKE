@@ -86,7 +86,7 @@ spec:
     # You must replace this email address with your own.
     # Let's Encrypt will use this to contact you about expiring
     # certificates, and issues related to your account.
-    email: gustavopereiranogueira@gmail.com
+    email: YOUR-EMAIL-HERE
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       # Secret resource that will be used to store the account's private key.
@@ -107,7 +107,7 @@ spec:
     # You must replace this email address with your own.
     # Let's Encrypt will use this to contact you about expiring
     # certificates, and issues related to your account.
-    email: gustavopereiranogueira@gmail.com
+    email: YOUR-EMAIL-HERE
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       # Secret resource that will be used to store the account's private key.
@@ -243,10 +243,10 @@ kubectl get secrets
 ```
 ```
 NAME                       TYPE                DATA   AGE
-tls-cloud.contaja.com.br   kubernetes.io/tls   2      17h
+tls   kubernetes.io/tls   2      17h
 
 kubectl describe secrets
-Name:         tls-cloud.contaja.com.br
+Name:         tls
 Namespace:    default
 Labels:       controller.cert-manager.io/fao=true
 Annotations:  cert-manager.io/alt-names: YOUR-DOMAIN
