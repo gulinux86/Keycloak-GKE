@@ -268,6 +268,7 @@ tls.crt:  5603 bytes
 tls.key:  1679 bytes
 ```
 
+
 ### We should install an Ingress as well, to read the rules prepared to redirect the requests to the right port. So, the Ingress will be  ready to use TLS protocol:
 
 ```
