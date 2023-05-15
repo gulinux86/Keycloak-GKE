@@ -122,3 +122,99 @@ spec:
 ```
 
 * the file above, we have two options. **Staginhg** and **Prod** and if you need to deploy it on test enrironment you should use **Staginhg**, but fell free to chose the best option for your case.
+
+* Checking cluster issuer:
+```
+Checking cluster issuer:
+```
+```
+NAME                  READY   AGE
+letsencrypt-prod      True    24h
+letsencrypt-staging   True    24h
+
+
+kubectl get clusterissuer
+
+NAME                  READY   AGE
+letsencrypt-prod      True    24h
+letsencrypt-staging   True    24h
+gustavopereiranogueira@cloudshell:~$ kubectl describe clusterissuer letsencrypt-prod
+Name:         letsencrypt-prod
+Namespace:
+Labels:       <none>
+Annotations:  <none>
+API Version:  cert-manager.io/v1
+Kind:         ClusterIssuer
+Metadata:
+  Creation Timestamp:  2023-04-26T14:51:55Z
+  Generation:          1
+  Managed Fields:
+    API Version:  cert-manager.io/v1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:annotations:
+          .:
+          f:kubectl.kubernetes.io/last-applied-configuration:
+      f:spec:
+        .:
+        f:acme:
+          .:
+          f:email:
+          f:privateKeySecretRef:
+            .:
+            f:name:
+          f:server:
+          f:solvers:
+    Manager:      kubectl-client-side-apply
+    Operation:    Update
+    Time:         2023-04-26T14:51:55Z
+    API Version:  cert-manager.io/v1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:status:
+        .:
+        f:acme:
+          .:
+          f:lastRegisteredEmail:
+          f:uri:
+        f:conditions:
+          .:
+          k:{"type":"Ready"}:
+            .:
+            f:lastTransitionTime:
+            f:message:
+            f:observedGeneration:
+            f:reason:
+            f:status:
+            f:type:
+    Manager:         cert-manager-clusterissuers
+    Operation:       Update
+    Subresource:     status
+    Time:            2023-04-26T14:51:56Z
+  Resource Version:  32884
+  UID:               174e0495-37bf-4b9b-85ea-49d7e5329fc4
+Spec:
+  Acme:
+    Email:            gustavopereiranogueira@gmail.com
+    Preferred Chain:
+    Private Key Secret Ref:
+      Name:  letsencrypt-prod
+    Server:  https://acme-v02.api.letsencrypt.org/directory
+    Solvers:
+      http01:
+        Ingress:
+          Class:  nginx
+Status:
+  Acme:
+    Last Registered Email:  gustavopereiranogueira@gmail.com
+    Uri:                    https://acme-v02.api.letsencrypt.org/acme/acct/1080703067
+  Conditions:
+    Last Transition Time:  2023-04-26T14:51:56Z
+    Message:               The ACME account was registered with the ACME server
+    Observed Generation:   1
+    Reason:                ACMEAccountRegistered
+    Status:                True
+    Type:                  Ready
+Events:                    <none>
+```
