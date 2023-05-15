@@ -121,4 +121,4 @@ spec:
           class: nginx
 ```
 
-
+* the file above, we have two options. **Staginhg** and **Prod** and if you need to deploy it on test enrironment you should use **Staginhg**, but fell free to chose the best option for your case.
