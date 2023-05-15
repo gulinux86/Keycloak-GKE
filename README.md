@@ -17,7 +17,7 @@ Run te coommands bellow:
 
 After installation run the command to check the EXTERNAL-IP and and Ingress-Controller on the ingress-nginx namespaces:
 
-```kubectl get all -n ingress-nginx
+```kubectl get all -n ingress-nginx```
 NAME                                            READY   STATUS    RESTARTS   AGE
 pod/ingress-nginx-controller-5cdcb78546-bqvdp   1/1     Running   0          24h
 
@@ -33,4 +33,4 @@ replicaset.apps/ingress-nginx-controller-5cdcb78546   1         1         1     
 
 NAME                                       COMPLETIONS   DURATION   AGE
 job.batch/ingress-nginx-admission-create   1/1           2m9s       24h
-job.batch/ingress-nginx-admission-patch    1/1           2m17s      24h```
+job.batch/ingress-nginx-admission-patch    1/1           2m17s      24h
